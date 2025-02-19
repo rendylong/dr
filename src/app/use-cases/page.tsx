@@ -368,7 +368,7 @@ export default function UseCases() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-24 mb-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            Ready to transform your team's research capabilities?
+            Ready to transform your team&apos;s research capabilities?
           </h2>
           <p className="mt-4 text-lg text-gray-600">
             Start using GBase today and empower your team with AI-powered research tools.

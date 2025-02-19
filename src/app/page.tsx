@@ -9,9 +9,6 @@ import {
   PuzzlePieceIcon,
   ShieldCheckIcon,
   ArrowRightIcon,
-  PlayCircleIcon,
-  CheckIcon,
-  ChatBubbleLeftIcon,
   SparklesIcon,
   UserIcon,
   LightBulbIcon,
@@ -22,17 +19,6 @@ import {
 import { useState, useEffect } from 'react';
 // MermaidDiagram 模块找不到，暂时注释掉
 // import MermaidDiagram from './research/MermaidDiagram';
-
-const styles = {
-  '@keyframes wave': {
-    '0%': { transform: 'translateX(-100%)' },
-    '50%': { transform: 'translateX(100%)' },
-    '100%': { transform: 'translateX(-100%)' }
-  },
-  '.animate-wave': {
-    animation: 'wave 3s ease-in-out infinite'
-  }
-};
 
 const features = [
   {
@@ -74,7 +60,6 @@ const features = [
 ];
 
 export default function Home() {
-  const [selectedBenefit, setSelectedBenefit] = useState<{featureIndex: number, benefitIndex: number} | null>(null);
   const [activeFeature, setActiveFeature] = useState(0);
   const [activeUseCase, setActiveUseCase] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
@@ -84,7 +69,71 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const gradientRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const gradientScale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
-  const dotScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+
+  useEffect(() => {
+    // 初始化窗口宽度
+    setWindowWidth(window.innerWidth);
+
+    // 监听窗口大小变化
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 添加自动播放效果
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    const startDemo = () => {
+      // 重置到初始状态
+      setCurrentStep(0);
+      setShowCanvas(false); // 确保每次重启时关闭 Canvas
+      
+      // 设置每个步骤的延时
+      const delays = [1000, 2000, 2000, 3000]; // 每个步骤的显示时间
+      let totalDelay = 0;
+      
+      // 依次展示每个步骤
+      delays.forEach((delay, index) => {
+        timer = setTimeout(() => {
+          setCurrentStep(index + 1);
+        }, totalDelay);
+        totalDelay += delay;
+      });
+
+      // 完整循环结束后重新开始
+      timer = setTimeout(startDemo, totalDelay + 2000);
+    };
+
+    startDemo();
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, []);
+
+  const handleFeatureClick = (index: number) => {
+    setActiveFeature(index);
+  };
+
+  // 计算卡片位移
+  const calculateTransform = () => {
+    if (windowWidth === 0) return '0px';
+    const cardWidth = 460; // 卡片宽度
+    const cardSpacing = 40; // 卡片间距 (px-5 * 2 = 40px)
+    const activeCardOffset = activeFeature * (cardWidth + cardSpacing);
+    const centerOffset = windowWidth / 2 - cardWidth / 2;
+    return `${centerOffset - activeCardOffset}px`;
+  };
+
+  const handleCanvasToggle = (show: boolean) => {
+    setShowCanvas(show);
+  };
 
   const useCases = [
     {
@@ -148,79 +197,6 @@ export default function Home() {
       ]
     }
   ];
-
-  useEffect(() => {
-    // 初始化窗口宽度
-    setWindowWidth(window.innerWidth);
-
-    // 监听窗口大小变化
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // 添加自动播放效果
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    
-    const startDemo = () => {
-      // 重置到初始状态
-      setCurrentStep(0);
-      setShowCanvas(false); // 确保每次重启时关闭 Canvas
-      
-      // 设置每个步骤的延时
-      const delays = [1000, 2000, 2000, 3000]; // 每个步骤的显示时间
-      let totalDelay = 0;
-      
-      // 依次展示每个步骤
-      delays.forEach((delay, index) => {
-        timer = setTimeout(() => {
-          setCurrentStep(index + 1);
-        }, totalDelay);
-        totalDelay += delay;
-      });
-
-      // 完整循环结束后重新开始
-      timer = setTimeout(startDemo, totalDelay + 2000);
-    };
-
-    startDemo();
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, []);
-
-  const handlePrevFeature = () => {
-    setActiveFeature((prev) => (prev === 0 ? features.length - 1 : prev - 1));
-  };
-
-  const handleNextFeature = () => {
-    setActiveFeature((prev) => (prev === features.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleFeatureClick = (index: number) => {
-    setActiveFeature(index);
-  };
-
-  // 计算卡片位移
-  const calculateTransform = () => {
-    if (windowWidth === 0) return '0px';
-    const cardWidth = 460; // 卡片宽度
-    const cardSpacing = 40; // 卡片间距 (px-5 * 2 = 40px)
-    const activeCardOffset = activeFeature * (cardWidth + cardSpacing);
-    const centerOffset = windowWidth / 2 - cardWidth / 2;
-    return `${centerOffset - activeCardOffset}px`;
-  };
-
-  const handleCanvasToggle = (show: boolean) => {
-    setShowCanvas(show);
-  };
 
   return (
     <div className="bg-white">
@@ -305,7 +281,7 @@ export default function Home() {
                 </h1>
                 
                 <p className="mt-6 text-[15.125px] leading-6 text-black opacity-50 max-w-[480px]">
-                 Leverage internal knowledge with the internet's vast resources
+                  Leverage internal knowledge with the internet&apos;s vast resources
                   <br />
                   Enable deep research for your entire team at <span className="bg-gradient-to-r from-black/50 to-black/30 text-white px-2 py-1 rounded-md">1/10 of the cost.</span>
                 </p>

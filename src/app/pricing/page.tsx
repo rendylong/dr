@@ -76,13 +76,13 @@ export default function Pricing() {
           </p>
 
           <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-4xl lg:grid-cols-2 lg:gap-x-8">
-            {tiers.map((tier, tierIdx) => (
+            {tiers.map((tier) => (
               <motion.div
                 key={tier.id}
                 initial={isLoaded ? { opacity: 0, y: 20 } : false}
                 animate={isLoaded ? { opacity: 1, y: 0 } : false}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: tierIdx * 0.1 }}
+                transition={{ duration: 0.5 }}
                 className={classNames(
                   tier.featured
                     ? 'lg:z-10 ring-2 ring-black'
@@ -115,7 +115,7 @@ export default function Pricing() {
                     )}
                   </p>
                   <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-black/60">
-                    {tier.features.map((feature, index) => (
+                    {tier.features.map((feature) => (
                       <li key={typeof feature === 'string' ? feature : feature.text} className="flex gap-x-3 items-center">
                         <CheckIcon className="h-5 w-5 flex-none text-black" aria-hidden="true" />
                         {typeof feature === 'string' ? feature : (
