@@ -63,7 +63,7 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
-            href="#"
+            href="https://knowledge.gbase.ai/auth/register"
             className="rounded-[999px] bg-black px-[13px] py-[8px] text-[15px] font-normal text-white border border-black hover:bg-black/90 transition-all"
           >
             Get Started
@@ -114,7 +114,7 @@ export default function Navbar() {
                   </div>
                   <div className="py-6">
                     <Link
-                      href="#"
+                      href="https://knowledge.gbase.ai/auth/register"
                       className="rounded-[999px] bg-black px-[13px] py-[8px] text-[15px] font-normal text-white border border-black hover:bg-black/90 transition-all"
                       onClick={() => setMobileMenuOpen(false)}
                     >

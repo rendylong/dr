@@ -40,105 +40,35 @@ const features = [
     tagline: 'Accelerate Your Research Process',
     description: 'Receive comprehensive research reports in minutes, drastically reducing research time and accelerating your projects.',
     icon: GlobeAltIcon,
-    benefits: [
-      {
-        title: 'Instant Insights, Accelerated Workflow',
-        detail: 'Comprehensive research reports in minutes'
-      },
-      {
-        title: 'Boost Analyst Productivity',
-        detail: 'Free up experts from tedious data collection'
-      },
-      {
-        title: 'Rapid Response to Market Changes',
-        detail: 'Swift reaction to market dynamics'
-      }
-    ],
-    imageSrc: '/features/speed-efficiency.png',
+    imageSrc: '/lightningfast.svg',
   },
   {
     name: 'Deep Intelligence',
     tagline: 'Unlock Hidden Market Insights',
     description: 'Analyze information from diverse online sources – text, images, PDFs – for a complete and nuanced understanding of your market landscape.',
     icon: CloudArrowUpIcon,
-    benefits: [
-      {
-        title: 'Holistic Data Integration',
-        detail: 'Multi-format data analysis (text, images, PDFs)'
-      },
-      {
-        title: 'Expert-Level Analysis & Reasoning',
-        detail: 'AI-powered logical reasoning and knowledge graphs'
-      },
-      {
-        title: 'Uncover Hidden Patterns & Connections',
-        detail: 'Advanced pattern recognition and trend analysis'
-      }
-    ],
-    imageSrc: '/features/intelligence.png',
+    imageSrc: '/deepintel.svg',
   },
   {
     name: 'Smart Automation',
-    tagline: 'Your Autonomous Research Partner',
-    description: 'Experience a self-learning AI that autonomously plans and executes complex research, adapting dynamically to real-time information.',
+    tagline: 'AI-Driven Research Planning & Execution',
+    description: 'Experience an intelligent system that automatically breaks down research objectives, plans execution steps, and engages in meaningful dialogue to deliver highly targeted insights.',
     icon: PuzzlePieceIcon,
-    benefits: [
-      {
-        title: 'Autonomous Research Agent',
-        detail: 'Dynamic research planning and execution'
-      },
-      {
-        title: 'Tailored Reporting & Outputs',
-        detail: 'Customizable reports and analysis formats'
-      },
-      {
-        title: 'Continuously Evolving & Optimizing',
-        detail: 'Self-learning AI capabilities'
-      }
-    ],
-    imageSrc: '/features/automation.png',
+    imageSrc: '/smartauto.svg',
   },
   {
     name: 'Strategic Impact',
     tagline: 'Transform Insights into Impact',
     description: 'Make informed, confident decisions based on accurate, reliable, and deeply analyzed research across any industry or domain.',
     icon: ShieldCheckIcon,
-    benefits: [
-      {
-        title: 'Data-Driven Decision Advantage',
-        detail: 'Informed decision-making capabilities'
-      },
-      {
-        title: 'Versatile Applications Across Industries',
-        detail: 'Multi-industry application flexibility'
-      },
-      {
-        title: 'Gain Competitive Edge & Minimize Risk',
-        detail: 'Strategic planning and risk mitigation'
-      }
-    ],
-    imageSrc: '/features/strategic.png',
+    imageSrc: '/strategic.svg',
   },
   {
     name: 'Private Knowledge',
     tagline: 'Your Custom Research Engine',
     description: '(Coming Soon) Seamlessly integrate your internal documents, reports, and knowledge base to create a customized research engine that truly understands your business context.',
     icon: CloudArrowUpIcon,
-    benefits: [
-      {
-        title: 'Enterprise Knowledge Integration',
-        detail: 'Upload and integrate internal documents, reports, and knowledge bases'
-      },
-      {
-        title: 'Context-Aware Research',
-        detail: 'Research insights aligned with your business context and unique needs'
-      },
-      {
-        title: 'Secure Document Management',
-        detail: 'Enterprise-grade security for your private knowledge assets'
-      }
-    ],
-    imageSrc: '/features/private-knowledge.png',
+    imageSrc: '/domainknow.svg',
     comingSoon: true,
   },
 ];
@@ -146,6 +76,7 @@ const features = [
 export default function Home() {
   const [selectedBenefit, setSelectedBenefit] = useState<{featureIndex: number, benefitIndex: number} | null>(null);
   const [activeFeature, setActiveFeature] = useState(0);
+  const [activeUseCase, setActiveUseCase] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [showCanvas, setShowCanvas] = useState(false);
@@ -154,6 +85,69 @@ export default function Home() {
   const gradientRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const gradientScale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
   const dotScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+
+  const useCases = [
+    {
+      title: "Market Research Team",
+      cases: [
+        {
+          title: "Market Entry Strategy",
+          description: "Comprehensive market analysis including size, growth potential, competitive landscape, and entry barriers.",
+          icon: ChartBarIcon
+        },
+        {
+          title: "Competitive Intelligence",
+          description: "Track competitors' products, strategies, strengths, and weaknesses. Identify market opportunities.",
+          icon: SparklesIcon
+        }
+      ]
+    },
+    {
+      title: "Product Team",
+      cases: [
+        {
+          title: "Product Innovation Research",
+          description: "Research emerging technologies and user needs to guide product development and innovation.",
+          icon: LightBulbIcon
+        },
+        {
+          title: "User Experience Analysis",
+          description: "Deep dive into user behavior patterns and preferences to optimize product design.",
+          icon: UserIcon
+        }
+      ]
+    },
+    {
+      title: "Investment Team",
+      cases: [
+        {
+          title: "Investment Due Diligence",
+          description: "Thorough analysis of investment opportunities, market trends, and risk assessment.",
+          icon: ChartBarIcon
+        },
+        {
+          title: "Portfolio Company Research",
+          description: "Monitor portfolio companies' performance and market positioning.",
+          icon: SparklesIcon
+        }
+      ]
+    },
+    {
+      title: "Strategy Consulting Team",
+      cases: [
+        {
+          title: "Industry Trend Analysis",
+          description: "Gain insights into industry trends, technological changes, and consumer behavior shifts.",
+          icon: LightBulbIcon
+        },
+        {
+          title: "Strategic Planning",
+          description: "Research-backed strategic recommendations for business growth and transformation.",
+          icon: ChartBarIcon
+        }
+      ]
+    }
+  ];
 
   useEffect(() => {
     // 初始化窗口宽度
@@ -311,14 +305,14 @@ export default function Home() {
                 </h1>
                 
                 <p className="mt-6 text-[15.125px] leading-6 text-black opacity-50 max-w-[480px]">
-                  Leverage your company's internal knowledge to conduct enterprise-level research.
+                 Leverage internal knowledge with the internet's vast resources
                   <br />
-                  Enable your entire team at <span className="bg-gradient-to-r from-black/50 to-black/30 text-white px-2 py-1 rounded-md">1/10 of the cost</span>.
+                  Enable deep research for your entire team at <span className="bg-gradient-to-r from-black/50 to-black/30 text-white px-2 py-1 rounded-md">1/10 of the cost.</span>
                 </p>
 
                 <div className="mt-6 flex items-start">
                   <Link
-                    href="#"
+                    href="https://knowledge.gbase.ai/auth/register"
                     className="rounded-[999px] bg-black px-[13px] py-[8px] text-[15px] font-normal text-white border border-black hover:bg-black/90 transition-all"
                   >
                     Get Started
@@ -326,7 +320,7 @@ export default function Home() {
                 </div>
 
                 {/* Feature highlights */}
-                <div className="mt-[36px] grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div className="mt-[56px] grid grid-cols-1 md:grid-cols-3 gap-16">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -380,17 +374,15 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
+                className="flex flex-col items-center"
               >
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl whitespace-nowrap">
+                <h2 className="text-4xl lg:text-[60.375px] font-medium tracking-[-2.56px] leading-tight lg:leading-[64px] text-black whitespace-nowrap text-center">
                   How Deep Research Works
                 </h2>
                 <div className="mt-4 grid grid-cols-1 gap-0">
                   <div className="relative w-full max-w-[896px] mx-auto">
                     <p className="text-lg text-gray-600 text-center">
-                      Experience how our AI agent transforms complex research tasks
-                    </p>
-                    <p className="text-lg text-gray-600 text-center">
-                      into clear, actionable insights
+                   Proactively breaks down research goals, refine focus, execute iterative web searches, and deliver a clear, thorough, structured report.
                     </p>
                   </div>
                 </div>
@@ -471,7 +463,7 @@ export default function Home() {
                             <li className="flex items-center gap-2 text-sm">
                               <ArrowRightIcon className="h-3 w-3 text-black" />
                               <span>Customer Service & Personalization</span>
-          </li>
+                            </li>
                           </ul>
                         </div>
                       </div>
@@ -632,6 +624,9 @@ export default function Home() {
                 </motion.div>
               </div>
               <div className="w-full overflow-hidden">
+                {/* 添加两侧的灰白色渐变遮罩 */}
+                <div className="absolute left-0 top-0 bottom-0 w-[240px] bg-gradient-to-r from-[#F5F3F2]/95 via-[#F5F3F2]/70 to-transparent z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-[240px] bg-gradient-to-l from-[#F5F3F2]/95 via-[#F5F3F2]/70 to-transparent z-10" />
                 <div className="flex transition-transform duration-500 ease-in-out" 
                      style={{ 
                        transform: `translateX(${calculateTransform()})`,
@@ -652,12 +647,14 @@ export default function Home() {
                     >
                       <div className="block">
                         <div className="flex flex-col justify-center items-start">
-                          <div className="relative w-full aspect-[1.5] rounded-xl overflow-hidden mb-4 bg-white">
-                            <div className={`absolute inset-0 transition-colors duration-300 ${index === activeFeature ? 'bg-black/0' : 'bg-black/20'}`} />
-                            <img
+                          <div className="relative w-full aspect-[1.5] rounded-xl overflow-hidden mb-4">
+                            <Image
                               src={feature.imageSrc}
                               alt={feature.name}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                              fill
+                              sizes="(max-width: 768px) 100vw, 460px"
+                              className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                              priority={index === 0}
                             />
                           </div>
                           
@@ -714,123 +711,86 @@ export default function Home() {
                 Use Cases
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-black/60">
-                Explore how GBase transforms complex research tasks into actionable insights
+                Explore how different teams leverage GBase for deep research
               </p>
             </motion.div>
           </div>
 
-          {/* Use Cases Demo */}
-          <motion.div
-            className="mb-24 perspective-[1000px]"
-          >
-            <div className="mx-auto max-w-[1200px]">
-              <motion.div 
-                className="relative w-full aspect-[2114/1528] rounded-2xl shadow-lg overflow-hidden origin-bottom"
-                style={{
-                  rotateX: useTransform(scrollYProgress, 
-                    [0.5, 0.7], // 调整这些值来控制动画开始和结束的滚动位置
-                    [20, 0]
-                  ),
-                  opacity: useTransform(scrollYProgress,
-                    [0.5, 0.7],
-                    [0.3, 1]
-                  ),
-                  scale: useTransform(scrollYProgress,
-                    [0.5, 0.7],
-                    [0.95, 1]
-                  )
-                }}
+          {/* Team Tabs */}
+          <div className="flex justify-center space-x-4 mb-12">
+            {useCases.map((useCase, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveUseCase(index)}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  index === activeUseCase 
+                  ? 'bg-black text-white shadow-lg' 
+                  : 'bg-white/50 text-black/60 hover:bg-white hover:text-black'
+                }`}
               >
-                <Image
-                  src="/usecase.png"
-                  alt="GBase Use Cases"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </motion.div>
-            </div>
-          </motion.div>
+                {useCase.title}
+              </button>
+            ))}
+          </div>
 
+          {/* Use Cases Grid */}
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex flex-col gap-y-8"
+            {useCases[activeUseCase].cases.map((useCase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col gap-y-8"
+              >
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white rounded-2xl p-8 transition-all duration-300 h-[200px]"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-black/5 rounded-xl">
+                      <useCase.icon className="h-6 w-6 text-black" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-black">{useCase.title}</h3>
+                  </div>
+                  <p className="text-black/60">
+                    {useCase.description}
+                  </p>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Navigation Arrows */}
+          <div className="flex justify-center items-center mt-12 gap-4">
+            <button
+              onClick={() => setActiveUseCase(prev => (prev === 0 ? useCases.length - 1 : prev - 1))}
+              className="p-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300"
             >
-              {/* Market Entry Strategy */}
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-2xl p-8 transition-all duration-300 h-[200px]"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-black/5 rounded-xl">
-                    <ChartBarIcon className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Market Entry Strategy</h3>
-                </div>
-                <p className="text-black/60">
-                  Comprehensive market analysis including size, growth potential, competitive landscape, and entry barriers.
-                </p>
-              </motion.div>
-
-              {/* Competitive Intelligence */}
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-2xl p-8 transition-all duration-300 h-[200px]"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-black/5 rounded-xl">
-                    <SparklesIcon className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Competitive Intelligence</h3>
-                </div>
-                <p className="text-black/60">
-                  Track competitors' products, strategies, strengths, and weaknesses. Identify market opportunities.
-                </p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="flex flex-col gap-y-8"
+              <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <div className="flex items-center gap-2">
+              {useCases.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveUseCase(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === activeUseCase ? 'bg-black scale-125' : 'bg-black/20'
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setActiveUseCase(prev => (prev === useCases.length - 1 ? 0 : prev + 1))}
+              className="p-2 rounded-full bg-white/50 hover:bg-white transition-all duration-300"
             >
-              {/* Industry Trend Analysis */}
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-2xl p-8 transition-all duration-300 h-[200px]"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-black/5 rounded-xl">
-                    <LightBulbIcon className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Industry Trend Analysis</h3>
-                </div>
-                <p className="text-black/60">
-                  Gain insights into industry trends, technological changes, and consumer behavior shifts. Predict future directions.
-                </p>
-              </motion.div>
-
-              {/* Customer Research */}
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-2xl p-8 transition-all duration-300 h-[200px]"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-black/5 rounded-xl">
-                    <UserIcon className="h-6 w-6 text-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black">Customer Research</h3>
-                </div>
-                <p className="text-black/60">
-                  Understand target customers' needs, pain points, and behavior patterns. Drive product development strategies.
-                </p>
-              </motion.div>
-            </motion.div>
+              <svg className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -848,17 +808,17 @@ export default function Home() {
                 Start Using GBase Today
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-                Experience AI-powered enterprise research capabilities now. Get 10x more insights at 1/10 of the cost.
+                Experience AI-powered enterprise deep research capabilities now. Get 10x more insights at 1/10 of the cost.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link
-                  href="#"
+                  href="https://knowledge.gbase.ai/auth/register"
                   className="rounded-[999px] bg-white px-[24px] py-[12px] text-[15px] font-normal text-black hover:bg-gray-100 transition-all"
                 >
                   Start Free Trial
                 </Link>
                 <Link
-                  href="#"
+                  href="https://knowledge.gbase.ai/auth/register"
                   className="rounded-[999px] px-[24px] py-[12px] text-[15px] font-normal text-white border border-white/20 hover:bg-white/10 transition-all"
                 >
                   Learn More
@@ -877,13 +837,13 @@ export default function Home() {
             <div className="space-y-8">
               <span className="text-2xl font-bold text-white">GBase</span>
               <p className="text-sm leading-6 text-gray-300">
-                Enterprise research platform powered by AI, delivering deep insights for better business decisions.
+                AI workspace for enterprise.
               </p>
               <div className="flex space-x-6">
                 <a href="#" className="text-gray-400 hover:text-gray-300">
-                  <span className="sr-only">LinkedIn</span>
+                  <span className="sr-only">Discord</span>
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+                    <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
                   </svg>
                 </a>
                 <a href="#" className="text-gray-400 hover:text-gray-300">
@@ -900,13 +860,10 @@ export default function Home() {
                   <h3 className="text-sm font-semibold leading-6 text-white">Product</h3>
                   <ul role="list" className="mt-6 space-y-4">
                     <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">Features</a>
+                      <a href="#features" className="text-sm leading-6 text-gray-300 hover:text-white">Features</a>
                     </li>
                     <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">Pricing</a>
-                    </li>
-                    <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">Case Studies</a>
+                      <Link href="/pricing" className="text-sm leading-6 text-gray-300 hover:text-white">Pricing</Link>
                     </li>
                   </ul>
                 </div>
@@ -914,13 +871,7 @@ export default function Home() {
                   <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
                   <ul role="list" className="mt-6 space-y-4">
                     <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">About</a>
-                    </li>
-                    <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">Blog</a>
-                    </li>
-                    <li>
-                      <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">Careers</a>
+                      <a href="https://www.sparticle.com" target="_blank" rel="noopener noreferrer" className="text-sm leading-6 text-gray-300 hover:text-white">About</a>
                     </li>
                   </ul>
                 </div>
@@ -955,7 +906,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-            <p className="text-xs leading-5 text-gray-400">&copy; 2024 GBase. All rights reserved.</p>
+            <p className="text-xs leading-5 text-gray-400">&copy; 2025 Sparticle. All rights reserved.</p>
           </div>
         </div>
       </footer>
