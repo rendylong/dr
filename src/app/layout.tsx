@@ -6,8 +6,18 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "YourSaaS - 智能化的 SaaS 解决方案",
-  description: "为您的业务提供智能化的 SaaS 解决方案，提升效率，降低成本。",
+  title: "GBase - Enterprise Deep Research, 10x more insights",
+  description: "Leverage internal knowledge with the internet's vast resources. Enable deep research for your entire team at 1/10 of the cost.",
+  openGraph: {
+    title: "GBase - Enterprise Deep Research, 10x more insights",
+    description: "Leverage internal knowledge with the internet's vast resources. Enable deep research for your entire team at 1/10 of the cost.",
+    type: "website",
+  },
+  twitter: {
+    title: "GBase - Enterprise Deep Research, 10x more insights",
+    description: "Leverage internal knowledge with the internet's vast resources. Enable deep research for your entire team at 1/10 of the cost.",
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
