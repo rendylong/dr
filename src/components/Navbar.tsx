@@ -2,17 +2,24 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { motion, useScroll } from 'framer-motion';
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Features', href: '/#features' },
+  { 
+    name: 'Features', 
+    href: '/#features',
+    dropdown: [
+      { name: 'Deep Research', href: '/features/deep-research', description: '10x more insights with AI-powered research' },
+    ]
+  },
   { name: 'Pricing', href: '/pricing' },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -52,13 +59,47 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
-            >
-              {item.name}
-            </Link>
+            <div key={item.name} className="relative">
+              {item.dropdown ? (
+                <div
+                  className="group"
+                  onMouseEnter={() => setActiveDropdown(item.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <button
+                    className="flex items-center gap-x-1 text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
+                  >
+                    {item.name}
+                    <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  
+                  {/* Dropdown menu */}
+                  <div
+                    className={`absolute left-0 top-full w-72 rounded-xl bg-white p-4 shadow-lg ring-1 ring-black/5 transition-all duration-200 ${
+                      activeDropdown === item.name ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+                    }`}
+                  >
+                    {item.dropdown.map((dropdownItem) => (
+                      <Link
+                        key={dropdownItem.name}
+                        href={dropdownItem.href}
+                        className="block rounded-lg p-3 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="font-medium text-black">{dropdownItem.name}</div>
+                        <div className="mt-1 text-sm text-gray-500">{dropdownItem.description}</div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
+                >
+                  {item.name}
+                </Link>
+              )}
+            </div>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -102,14 +143,33 @@ export default function Navbar() {
                 <div className="-my-6 divide-y divide-gray-500/10">
                   <div className="space-y-2 py-6">
                     {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block px-3 py-2 text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
+                      <div key={item.name}>
+                        {item.dropdown ? (
+                          <div className="space-y-2">
+                            <div className="px-3 py-2 text-[15px] font-normal text-black opacity-50">
+                              {item.name}
+                            </div>
+                            {item.dropdown.map((dropdownItem) => (
+                              <Link
+                                key={dropdownItem.name}
+                                href={dropdownItem.href}
+                                className="block px-6 py-2 text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
+                                onClick={() => setMobileMenuOpen(false)}
+                              >
+                                {dropdownItem.name}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className="block px-3 py-2 text-[15px] font-normal text-black opacity-50 hover:opacity-100 transition-opacity"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        )}
+                      </div>
                     ))}
                   </div>
                   <div className="py-6">
