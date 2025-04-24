@@ -385,13 +385,13 @@ export default function Home() {
             {/* 右侧功能列表 */}
             <div className="lg:col-span-8">
               <dl className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {features.map((feature, index) => (
+                {features.map((feature) => (
             <motion.div
                     key={feature.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.5 }}
                     className="flex flex-col items-center text-center"
                   >
                     <div className="flex-none mb-8">
@@ -443,13 +443,13 @@ export default function Home() {
             {/* 右侧功能列表 */}
             <div className="lg:col-span-8">
               <dl className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {projectFeature.features.map((feature, index) => (
+                {projectFeature.features.map((feature) => (
                     <motion.div
                     key={feature.name}
                       initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.5 }}
                     className="flex items-start p-6 rounded-2xl bg-white shadow-sm ring-1 ring-gray-900/5"
                   >
                     <feature.icon className="h-8 w-8 text-black flex-shrink-0 mr-4" aria-hidden="true" />
@@ -484,7 +484,7 @@ export default function Home() {
       {/* Key Features - Notion Style */}
       <div className="relative bg-gray-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          {keyFeatures.map((feature, i) => (
+          {keyFeatures.map((feature) => (
             <div key={feature.name} className="mb-32 last:mb-0">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 {/* 左侧标题区域 */}
@@ -501,13 +501,13 @@ export default function Home() {
                 {/* 右侧功能列表 */}
                 <div className="lg:col-span-8">
                   <dl className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {feature.features.map((item, i) => (
-              <motion.div
+                    {feature.features.map((item) => (
+                      <motion.div
                         key={item.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
                         className="flex flex-col items-center text-center"
                       >
                         <div className="flex-none mb-8">
@@ -516,9 +516,9 @@ export default function Home() {
                         <div>
                           <dt className="text-xl font-semibold leading-7 text-black">{item.name}</dt>
                           <dd className="mt-2 text-base text-gray-600">{item.description}</dd>
-                      </div>
-              </motion.div>
-                  ))}
+                        </div>
+                      </motion.div>
+                    ))}
                   </dl>
                 </div>
               </div>
@@ -564,13 +564,13 @@ export default function Home() {
 
           {/* 用例列表 */}
           <div className="mt-16 space-y-4">
-            {useCases.map((useCase, i) => (
+            {useCases.map((useCase) => (
               <motion.div
                 key={useCase.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.5 }}
                 className="group relative"
               >
                 <Link href={`/use-cases/${useCase.name.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -594,9 +594,9 @@ export default function Home() {
                         {/* 右侧功能列表 */}
                         <div className="lg:col-span-9">
                           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                            {useCase.features.map((feature, i) => (
+                            {useCase.features.map((feature) => (
                               <div 
-                                key={i} 
+                                key={feature.name} 
                                 className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-gray-900/[0.03] transition-all duration-300 group-hover:ring-gray-900/[0.05] group-hover:shadow-md"
                               >
                                 <dt className="text-sm font-semibold text-black mb-1">{feature.name}</dt>
@@ -631,7 +631,7 @@ export default function Home() {
 
           {/* 切换按钮 */}
           <div className="mt-8 flex items-center justify-center gap-x-2">
-            {useCases.map((useCase, index) => (
+            {useCases.map((useCase) => (
               <button
                 key={useCase.name}
                 className="rounded-full w-2 h-2 bg-gray-300 hover:bg-gray-400 transition-colors"
