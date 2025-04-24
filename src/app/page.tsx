@@ -20,9 +20,6 @@ import {
   BoltIcon,
   SparklesIcon,
   CpuChipIcon,
-  ChartBarIcon,
-  LockClosedIcon,
-  CheckIcon,
   ExclamationCircleIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
@@ -487,7 +484,7 @@ export default function Home() {
       {/* Key Features - Notion Style */}
       <div className="relative bg-gray-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          {keyFeatures.map((feature, index) => (
+          {keyFeatures.map((feature, i) => (
             <div key={feature.name} className="mb-32 last:mb-0">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 {/* 左侧标题区域 */}
@@ -567,13 +564,13 @@ export default function Home() {
 
           {/* 用例列表 */}
           <div className="mt-16 space-y-4">
-            {useCases.map((useCase, index) => (
+            {useCases.map((useCase, i) => (
               <motion.div
                 key={useCase.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="group relative"
               >
                 <Link href={`/use-cases/${useCase.name.toLowerCase().replace(/\s+/g, '-')}`}>
